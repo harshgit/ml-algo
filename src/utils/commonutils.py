@@ -104,6 +104,23 @@ def standardize_pd(df):
 
 def standardize_pd_m_s(df,m,s):
     return (df-m)/s
+
+def convert_bin_pd(df,col_list):
+    df_copy = df.copy()
+    for col in col_list:
+        df_copy[col] =  df_copy[col].apply(lambda x: 1.0 if x >= df_copy[col].mean() else 0.0 )
+    return df_copy
+    
+
+def get_covariance(x):
+    return x.T@x/(x.shape[0]-1)
+
+def get_projection(x,w):
+    return x@w
+
+def compute_similarity(x_train,x1):
+    dist = np.sum(np.square(x_train-x1), axis=1)
+    return dist
     
 
     
